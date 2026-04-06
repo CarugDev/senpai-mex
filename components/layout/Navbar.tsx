@@ -2,11 +2,13 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/hooks/useAuth'
+import { useCart } from '@/hooks/useCart'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const cartCount = useCart(s => s.count())
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -55,7 +57,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-8 ml-auto">
             <Link href="/carrito" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide">
-              Carrito (0)
+              Carrito ({cartCount})
             </Link>
             {user ? (
               <div className="flex items-center gap-6">
