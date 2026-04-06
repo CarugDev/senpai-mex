@@ -9,14 +9,15 @@ export async function POST() {
   try {
     const categories = await prisma.category.createMany({
       data: [
-        { name: 'Tés Japoneses', slug: 'tes-japoneses', description: 'Matcha, hojicha, gyokuro y más' },
-        { name: 'Snacks', slug: 'snacks', description: 'Snacks auténticos importados de Japón' },
-        { name: 'Utensilios', slug: 'utensilios', description: 'Utensilios tradicionales japoneses' },
+        { name: 'Belleza', slug: 'belleza', description: 'Cosméticos y cuidado personal importados de Japón' },
+        { name: 'Ropa', slug: 'ropa', description: 'Moda japonesa auténtica' },
+        { name: 'Bags', slug: 'bags', description: 'Bolsas y accesorios japoneses' },
+        { name: 'Tés', slug: 'tes', description: 'Matcha, hojicha, gyokuro y más' },
       ],
       skipDuplicates: true,
     })
 
-    const category = await prisma.category.findFirst({ where: { slug: 'tes-japoneses' } })
+    const category = await prisma.category.findFirst({ where: { slug: 'tes' } })
 
     await prisma.product.createMany({
       data: [

@@ -1,17 +1,19 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Inter } from 'next/font/google'
+import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import './globals.css'
+import Navbar from '@/components/layout/Navbar'
+import Footer from '@/components/layout/Footer'
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-playfair',
-  weight: ['400', '500', '600', '700'],
+  variable: '--font-cormorant',
+  weight: ['300', '400', '500', '600'],
 })
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
-  weight: ['300', '400', '500', '600'],
+  variable: '--font-dm-sans',
+  weight: ['300', '400', '500'],
 })
 
 export const metadata: Metadata = {
@@ -27,8 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${playfair.variable} ${inter.variable} font-body bg-sakura-mist text-sakura-ink antialiased`}>
+      <body className={`${cormorant.variable} ${dmSans.variable} font-body bg-mist text-ink antialiased`}>
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   )

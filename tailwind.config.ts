@@ -9,27 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        sakura: {
-          ink: '#1a1a2e',
-          mist: '#f8f4ef',
-          matcha: '#4a7c59',
-          gold: '#c9a84c',
-          clay: '#c4724a',
-          snow: '#ffffff',
-          'mist-dark': '#ede8e1',
-          'ink-light': '#2d2d44',
-        },
+        ink: '#1C1C1E',
+        mist: '#F7F3EE',
+        matcha: '#3D6B4F',
+        gold: '#B8963E',
+        stone: '#8C8880',
+        snow: '#FFFFFF',
+        'mist-dark': '#EDE8E1',
+        'ink-soft': '#2C2C2E',
       },
       fontFamily: {
-        display: ['var(--font-playfair)', 'Georgia', 'serif'],
-        body: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-cormorant)', 'Georgia', 'serif'],
+        body: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        'jp': '2px',
+        jp: '2px',
       },
       boxShadow: {
-        'jp': '0 2px 12px rgba(26, 26, 46, 0.08)',
-        'jp-hover': '0 4px 24px rgba(26, 26, 46, 0.14)',
+        jp: '0 2px 12px rgba(28, 28, 30, 0.08)',
+        'jp-hover': '0 4px 24px rgba(28, 28, 30, 0.14)',
       },
     },
   },

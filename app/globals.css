@@ -3,34 +3,15 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: #f8f4ef;
-    --foreground: #1a1a2e;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-  }
-
-  h1, h2, h3, h4 {
-    font-family: var(--font-playfair);
-  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #F7F3EE; color: #1C1C1E; }
+  h1, h2, h3, h4 { font-family: var(--font-cormorant); font-weight: 400; }
 }
 
 @layer utilities {
-  .jp-divider {
-    @apply border-t border-sakura-ink/10;
-  }
-  .jp-container {
-    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
+  .section-pad { @apply py-24 md:py-32; }
+  .container-jp { @apply max-w-screen-xl mx-auto px-6 md:px-12 lg:px-20; }
+  .label-sm { @apply font-body text-xs uppercase tracking-[0.2em]; color: #8C8880; }
+  .divider { @apply border-t border-ink/8; }
 }
