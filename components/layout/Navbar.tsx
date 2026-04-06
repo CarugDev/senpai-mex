@@ -1,16 +1,33 @@
 'use client'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { supabase } from '@/hooks/useAuth'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
+
+  async function handleLogout() {
+    await supabase.auth.signOut()
+    setUser(null)
+  }
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-mist/95 backdrop-blur-sm border-b border-ink/8' : 'bg-transparent'}`}>
@@ -40,9 +57,20 @@ export default function Navbar() {
             <Link href="/carrito" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide">
               Carrito (0)
             </Link>
-            <Link href="/login" className="font-body text-sm text-ink border-b border-ink/30 hover:border-ink pb-0.5 transition-colors duration-300">
-              Ingresar
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-6">
+                <Link href="/perfil" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300">
+                  Mi cuenta
+                </Link>
+                <button onClick={handleLogout} className="font-body text-sm text-ink border-b border-ink/30 hover:border-ink pb-0.5 transition-colors duration-300">
+                  Salir
+                </button>
+              </div>
+            ) : (
+              <Link href="/login" className="font-body text-sm text-ink border-b border-ink/30 hover:border-ink pb-0.5 transition-colors duration-300">
+                Ingresar
+              </Link>
+            )}
           </div>
 
           <button className="md:hidden ml-auto" onClick={() => setMenuOpen(!menuOpen)}>
@@ -63,7 +91,16 @@ export default function Navbar() {
             ))}
             <div className="pt-4 border-t border-ink/8 space-y-4">
               <Link href="/carrito" className="block font-body text-sm text-ink/60" onClick={() => setMenuOpen(false)}>Carrito</Link>
-              <Link href="/login" className="block font-body text-sm text-ink" onClick={() => setMenuOpen(false)}>Ingresar</Link>
+              {user ? (
+                <>
+                  <Link href="/perfil" className="block font-body text-sm text-ink/60" onClick={() => setMenuOpen(false)}>Mi cuenta</Link>
+                  <button onClick={() => { handleLogout(); setMenuOpen(false) }} className="block font-body text-sm text-ink">
+                    Salir
+                  </button>
+                </>
+              ) : (
+                <Link href="/login" className="block font-body text-sm text-ink" onClick={() => setMenuOpen(false)}>Ingresar</Link>
+              )}
             </div>
           </div>
         )}
