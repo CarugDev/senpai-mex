@@ -59,7 +59,11 @@ export default async function ProductosPage({
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-14 pb-32">
             {products.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={{
+                ...product,
+                price: Number(product.price),
+                compareAt: product.compareAt ? Number(product.compareAt) : null,
+              }} />
             ))}
           </div>
         )}

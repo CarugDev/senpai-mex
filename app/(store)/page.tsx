@@ -112,7 +112,11 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
             {featured.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={{
+                ...product,
+                price: Number(product.price),
+                compareAt: product.compareAt ? Number(product.compareAt) : null,
+              }} />
             ))}
           </div>
         </div>
@@ -160,7 +164,11 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 md:gap-x-10 gap-y-14">
             {all.map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={{
+                ...product,
+                price: Number(product.price),
+                compareAt: product.compareAt ? Number(product.compareAt) : null,
+              }} />
             ))}
           </div>
         </div>
