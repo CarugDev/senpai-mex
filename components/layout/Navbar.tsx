@@ -33,9 +33,17 @@ export default function Navbar() {
     setUser(null)
   }
 
+  const linkClass = scrolled
+    ? 'font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide border-b-2 border-torii/0 hover:border-torii/100 pb-0.5'
+    : 'font-body text-sm text-snow/80 hover:text-snow transition-colors duration-300 tracking-wide border-b-2 border-torii/0 hover:border-torii/100 pb-0.5'
+
+  const utilLinkClass = scrolled
+    ? 'font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide'
+    : 'font-body text-sm text-snow/80 hover:text-snow transition-colors duration-300 tracking-wide'
+
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-mist/95 backdrop-blur-sm border-b border-ink/8' : 'bg-transparent'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-mist/95 backdrop-blur-sm border-b border-ink/8' : 'bg-gradient-to-b from-ink/70 to-transparent'}`}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -44,39 +52,40 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
 
           <div className="hidden md:flex items-center gap-10">
-            <Link href="/productos?category=belleza" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide">
-              Belleza
-            </Link>
-            <Link href="/productos?category=ropa" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide">
-              Ropa
-            </Link>
-            <Link href="/productos?category=bags" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide">
-              Bags
-            </Link>
-            <Link href="/productos?category=tes" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide">
-              Tés
-            </Link>
+            <Link href="/productos?category=belleza" className={linkClass}>Belleza</Link>
+            <Link href="/productos?category=ropa" className={linkClass}>Ropa</Link>
+            <Link href="/productos?category=bags" className={linkClass}>Bags</Link>
+            <Link href="/productos?category=tes" className={linkClass}>Tés</Link>
           </div>
 
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <Image src="/logo.png" alt="Senpai Mex" width={120} height={40} className="object-contain" />
+            <Image
+              src="/logo.png"
+              alt="Senpai Mex"
+              width={120}
+              height={40}
+              className={`object-contain transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
+            />
           </Link>
 
           <div className="hidden md:flex items-center gap-8 ml-auto">
-            <Link href="/carrito" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300 tracking-wide">
+            <Link href="/carrito" className={utilLinkClass}>
               Carrito ({cartCount})
             </Link>
             {user ? (
               <div className="flex items-center gap-6">
-                <Link href="/perfil" className="font-body text-sm text-ink/60 hover:text-ink transition-colors duration-300">
+                <Link href="/perfil" className={utilLinkClass}>
                   Mi cuenta
                 </Link>
-                <button onClick={handleLogout} className="font-body text-sm text-ink border-b border-ink/30 hover:border-ink pb-0.5 transition-colors duration-300">
+                <button
+                  onClick={handleLogout}
+                  className={`font-body text-sm border-b pb-0.5 transition-colors duration-300 ${scrolled ? 'text-ink border-ink/30 hover:border-ink' : 'text-snow/80 border-snow/30 hover:text-snow hover:border-snow'}`}
+                >
                   Salir
                 </button>
               </div>
             ) : (
-              <Link href="/login" className="font-body text-sm text-ink border-b border-ink/30 hover:border-ink pb-0.5 transition-colors duration-300">
+              <Link href="/login" className="font-body text-sm bg-torii text-snow px-4 py-2 hover:bg-torii-dark transition-colors duration-300">
                 Ingresar
               </Link>
             )}
@@ -84,9 +93,9 @@ export default function Navbar() {
 
           <button className="md:hidden ml-auto" onClick={() => setMenuOpen(!menuOpen)}>
             <div className="space-y-1.5">
-              <span className={`block w-6 h-px bg-ink transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`block w-6 h-px bg-ink transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-              <span className={`block w-6 h-px bg-ink transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? 'bg-ink' : 'bg-snow'} ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? 'bg-ink' : 'bg-snow'} ${menuOpen ? 'opacity-0' : ''}`} />
+              <span className={`block w-6 h-px transition-all duration-300 ${scrolled ? 'bg-ink' : 'bg-snow'} ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
             </div>
           </button>
         </div>

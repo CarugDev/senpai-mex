@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#1C1C1E',
+        ink: '#1A1A1A',
         mist: '#F7F3EE',
         matcha: '#3D6B4F',
         gold: '#B8963E',
@@ -17,6 +17,12 @@ const config: Config = {
         snow: '#FFFFFF',
         'mist-dark': '#EDE8E1',
         'ink-soft': '#2C2C2E',
+        torii: '#C0392B',
+        'torii-dark': '#96281B',
+        'torii-light': '#E74C3C',
+        sakura: '#F8BBD0',
+        'sakura-dark': '#F06292',
+        navy: '#1B2A4A',
       },
       fontFamily: {
         display: ['var(--font-cormorant)', 'Georgia', 'serif'],

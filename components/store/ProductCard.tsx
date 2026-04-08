@@ -39,7 +39,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
           {hasDiscount && (
             <div className="absolute top-4 left-4">
-              <span className="font-body text-xs tracking-widest bg-ink text-snow px-3 py-1">
+              <span className="font-body text-xs tracking-widest bg-torii text-snow px-3 py-1">
                 OFERTA
               </span>
             </div>
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
         <div className="space-y-2">
           <p className="label-sm">{product.category.name}</p>
-          <h3 className="font-display text-xl text-ink leading-snug group-hover:text-matcha transition-colors duration-300">
+          <h3 className="font-display text-xl text-ink leading-snug group-hover:text-torii transition-colors duration-300">
             {product.name}
           </h3>
           <div className="flex items-center gap-3 pt-1">
