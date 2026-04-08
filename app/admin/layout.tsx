@@ -1,11 +1,14 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-mist flex">
       <aside className="w-64 bg-ink min-h-screen fixed top-0 left-0 flex flex-col">
         <div className="p-8 border-b border-snow/10">
-          <Link href="/" className="font-display text-xl text-snow tracking-widest">先輩</Link>
+          <Link href="/">
+            <Image src="/logo.png" alt="Senpai Mex" width={100} height={34} className="object-contain brightness-0 invert" />
+          </Link>
           <p className="font-body text-xs text-snow/30 mt-1 tracking-widest">ADMIN PANEL</p>
         </div>
         <nav className="flex-1 p-6 space-y-1">

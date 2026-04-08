@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/hooks/useAuth'
 import { useCart } from '@/hooks/useCart'
@@ -51,8 +52,8 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <Link href="/" className="font-display text-2xl text-ink tracking-widest absolute left-1/2 -translate-x-1/2">
-            先輩
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+            <Image src="/logo.png" alt="Senpai Mex" width={120} height={40} className="object-contain" />
           </Link>
 
           <div className="hidden md:flex items-center gap-8 ml-auto">
