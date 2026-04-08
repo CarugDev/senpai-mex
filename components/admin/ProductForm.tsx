@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { supabase } from '@/hooks/useAuth'
 
 interface Category { id: string; name: string }
 interface Product {
@@ -12,6 +13,8 @@ interface Product {
 export default function ProductForm({ categories, product }: { categories: Category[]; product?: Product }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadedImages, setUploadedImages] = useState<string[]>(product?.images ?? [])
   const [form, setForm] = useState({
     name: product?.name ?? '',
     slug: product?.slug ?? '',
@@ -28,6 +31,45 @@ export default function ProductForm({ categories, product }: { categories: Categ
 
   function generateSlug(name: string) {
     return name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+  }
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = e.target.files
+    if (!files || files.length === 0) return
+    setUploading(true)
+
+    const newImages: string[] = []
+
+    for (const file of Array.from(files)) {
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+
+      const { error } = await supabase.storage
+        .from('productos')
+        .upload(fileName, file, { upsert: true })
+
+      if (error) {
+        alert(`Error subiendo ${file.name}: ${error.message}`)
+        continue
+      }
+
+      const { data } = supabase.storage
+        .from('productos')
+        .getPublicUrl(fileName)
+
+      newImages.push(data.publicUrl)
+    }
+
+    const allImages = [...uploadedImages, ...newImages]
+    setUploadedImages(allImages)
+    setForm(prev => ({ ...prev, images: allImages.join(', ') }))
+    setUploading(false)
+  }
+
+  function removeImage(url: string) {
+    const filtered = uploadedImages.filter(img => img !== url)
+    setUploadedImages(filtered)
+    setForm(prev => ({ ...prev, images: filtered.join(', ') }))
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -101,8 +143,43 @@ export default function ProductForm({ categories, product }: { categories: Categ
       </div>
 
       <div>
-        <label className={labelClass}>URLs de imágenes (separadas por coma)</label>
-        <input className={inputClass} value={form.images} onChange={e => setForm({ ...form, images: e.target.value })} placeholder="https://..." />
+        <label className={labelClass}>Imágenes del producto</label>
+
+        <div className="border-2 border-dashed border-ink/20 p-6 text-center hover:border-torii/50 transition-colors duration-300 cursor-pointer relative">
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageUpload}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            disabled={uploading}
+          />
+          {uploading ? (
+            <p className="font-body text-sm text-stone">Subiendo imagen...</p>
+          ) : (
+            <div>
+              <p className="font-body text-sm text-ink mb-1">Haz clic o arrastra las imágenes aquí</p>
+              <p className="font-body text-xs text-stone">JPG, PNG, WebP — múltiples imágenes permitidas</p>
+            </div>
+          )}
+        </div>
+
+        {uploadedImages.length > 0 && (
+          <div className="grid grid-cols-4 gap-3 mt-4">
+            {uploadedImages.map((url, i) => (
+              <div key={i} className="relative group aspect-square bg-mist overflow-hidden">
+                <img src={url} alt="" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={() => removeImage(url)}
+                  className="absolute top-1 right-1 bg-torii text-snow text-xs w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="flex gap-8">

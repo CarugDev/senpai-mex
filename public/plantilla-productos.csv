@@ -1,0 +1,2 @@
+name,slug,description,price,compareAt,stock,imageUrl,categorySlug,isFeatured
+Ejemplo Producto,ejemplo-producto,Descripción del producto,299.00,,10,https://url-de-imagen.jpg,belleza,false

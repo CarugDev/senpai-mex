@@ -17,6 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             { label: 'Productos', href: '/admin/productos' },
             { label: 'Órdenes', href: '/admin/ordenes' },
             { label: 'Categorías', href: '/admin/categorias' },
+            { label: 'Importar CSV', href: '/admin/import' },
           ].map(item => (
             <Link key={item.href} href={item.href} className="block font-body text-sm text-snow/50 hover:text-snow px-4 py-3 hover:bg-snow/5 transition-colors duration-200 tracking-wide">
               {item.label}
