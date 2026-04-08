@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/hooks/useAuth'
 import { useCart } from '@/hooks/useCart'
@@ -33,7 +34,12 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-mist/95 backdrop-blur-sm border-b border-ink/8' : 'bg-transparent'}`}>
+    <motion.nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-mist/95 backdrop-blur-sm border-b border-ink/8' : 'bg-transparent'}`}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       <div className="container-jp">
         <div className="flex items-center justify-between h-20">
 
@@ -108,6 +114,6 @@ export default function Navbar() {
           </div>
         )}
       </div>
-    </nav>
+    </motion.nav>
   )
 }
