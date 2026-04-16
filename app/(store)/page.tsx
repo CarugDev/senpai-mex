@@ -116,7 +116,7 @@ export default function HomePage() {
               <h2 className="font-display text-4xl md:text-5xl text-ink">Todo lo que Japón tiene para ti</h2>
             </div>
           </AnimateIn>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
               { name: 'Belleza', slug: 'belleza', kanji: '美', desc: 'Skincare y cosméticos japoneses', img: '/images/categoria-belleza.jpg' },
               { name: 'Ropa', slug: 'ropa', kanji: '服', desc: 'Moda auténtica de Japón', img: '/images/categoria-ropa.webp' },
@@ -149,6 +149,25 @@ export default function HomePage() {
                 </Link>
               </AnimateIn>
             ))}
+            <AnimateIn delay={0.4} direction="up">
+              <Link
+                href="/productos?category=varios"
+                className="group relative aspect-square overflow-hidden flex flex-col justify-between p-8 block bg-ink"
+              >
+                <div className="absolute inset-0 bg-ink group-hover:bg-torii/80 transition-colors duration-500" />
+                <span className="relative z-10 font-display text-6xl text-snow/20 leading-none">
+                  他
+                </span>
+                <div className="relative z-10">
+                  <p className="font-body text-xs text-snow/60 tracking-widest mb-1">
+                    Productos variados de Japón
+                  </p>
+                  <p className="font-display text-xl text-snow">
+                    Varios
+                  </p>
+                </div>
+              </Link>
+            </AnimateIn>
           </div>
         </div>
       </section>

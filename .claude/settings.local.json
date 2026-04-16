@@ -4,7 +4,9 @@
       "Bash(npx prisma:*)",
       "Bash(find /f/Senpaimex/senpai-mex -not -path */node_modules/* -not -path */.next/* -type f)",
       "Bash(grep -E \"\\\\.\\(tsx?|css|json\\)$\")",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(ls \"F:/Senpaimex/senpai-mex/app/\\(auth\\)/actualizar-password/\")"
     ]
   }
 }

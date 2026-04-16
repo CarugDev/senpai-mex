@@ -29,21 +29,25 @@ export async function middleware(request: NextRequest) {
   const isProtected = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route))
   const isAdmin = adminRoutes.some(route => request.nextUrl.pathname.startsWith(route))
 
-  if (!user && (isProtected || isAdmin)) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-
   if (user && isAdmin) {
-    const { data: profile } = await supabase
-      .from('users')
-      .select('role')
-      .eq('id', user.id)
-      .single()
+  const { createClient } = await import('@supabase/supabase-js')
+  const adminClient = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+  
+  const { data: profile, error } = await adminClient
+    .from('users')
+    .select('role')
+    .eq('id', user.id)
+    .single()
 
-    if (!profile || profile.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/', request.url))
-    }
+  console.log('Admin check:', { userId: user.id, profile, error })
+
+  if (!profile || profile.role !== 'ADMIN') {
+    return NextResponse.redirect(new URL('/', request.url))
   }
+}
 
   return supabaseResponse
 }
