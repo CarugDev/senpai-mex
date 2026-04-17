@@ -223,15 +223,15 @@ export default function HomePage() {
             <AnimateIn direction="left" delay={0.2} className="bg-ink text-snow p-12 md:p-16 flex flex-col justify-center">
               <p className="font-body text-xs uppercase tracking-[0.2em] text-torii-light mb-6">Nuestra historia</p>
               <h2 className="font-display text-4xl md:text-5xl text-snow leading-tight mb-8">
-                Vivió en Japón.<br />
-                Trajo lo<br />
+                Viví en Japón.<br />
+                Traje lo<br />
                 <em className="not-italic text-torii-light">mejor</em> a México.
               </h2>
               <p className="font-body text-snow/60 leading-relaxed mb-6">
-                Después de vivir una temporada en Japón, nuestro fundador quedó enamorado de una cultura que combina tradición milenaria con innovación sin igual. Desde la skincare más avanzada hasta el té más puro, cada producto japonés tiene algo especial que no se encuentra en ningún otro lugar.
+                Después de vivir una temporada en Japón, quedé enamorado de una cultura que combina tradición milenaria con innovación sin igual. Desde la skincare más avanzada hasta el té más puro, cada producto japonés tiene algo especial que no encuentras en ningún otro lugar.
               </p>
               <p className="font-body text-snow/60 leading-relaxed mb-12">
-                Así nació Senpai Mex — para que no tengas que viajar miles de kilómetros para vivir un poco de esa experiencia. Lo seleccionamos allá para que tú lo disfrutes acá.
+                Por eso nació Senpai Mex — para que no tengas que viajar miles de kilómetros para vivir un poco de esa experiencia. Yo lo selecciono allá para que tú lo disfrutes acá.
               </p>
               <Link href="/nosotros" className="font-body text-sm tracking-widest text-torii-light border-b border-torii-light/30 pb-1 hover:border-torii-light transition-colors duration-300 self-start">
                 CONOCE NUESTRA HISTORIA
@@ -270,7 +270,7 @@ export default function HomePage() {
             src="/images/fuji.jpg"
             alt="Monte Fuji"
             fill
-            className="object-cover object-top"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-navy/70" />
         </div>

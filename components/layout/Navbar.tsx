@@ -62,7 +62,7 @@ export default function Navbar() {
             <Link href="/productos?category=ropa" className={linkClass}>Ropa</Link>
             <Link href="/productos?category=bags" className={linkClass}>Bags</Link>
             <Link href="/productos?category=tes" className={linkClass}>Tés</Link>
-            <Link href="/productos?category=varios" className={linkClass}>Varios</Link>
+            <Link href="/nosotros" className={linkClass}>Nosotros</Link>
           </div>
 
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
@@ -109,7 +109,7 @@ export default function Navbar() {
 
         {menuOpen && (
           <div className="md:hidden bg-mist border-t border-ink/8 py-8 space-y-6">
-            {[['Belleza', '/productos?category=belleza'], ['Ropa', '/productos?category=ropa'], ['Bags', '/productos?category=bags'], ['Tés', '/productos?category=tes'], ['Varios', '/productos?category=varios']].map(([label, href]) => (
+            {[['Belleza', '/productos?category=belleza'], ['Ropa', '/productos?category=ropa'], ['Bags', '/productos?category=bags'], ['Tés', '/productos?category=tes'], ['Nosotros', '/nosotros']].map(([label, href]) => (
               <Link key={label} href={href} className="block font-body text-sm text-ink/70 hover:text-ink tracking-wide" onClick={() => setMenuOpen(false)}>
                 {label}
               </Link>
