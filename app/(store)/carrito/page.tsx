@@ -2,30 +2,9 @@
 import { useCart } from '@/hooks/useCart'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, total, count, clearCart } = useCart()
-  const [loading, setLoading] = useState(false)
-
-  async function handleCheckout() {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items }),
-      })
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url
-      }
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   if (count() === 0) {
     return (
@@ -133,13 +112,12 @@ export default function CartPage() {
                 </p>
               )}
 
-              <button
-                onClick={handleCheckout}
-                disabled={loading}
-                className="w-full bg-ink text-snow font-body text-sm tracking-widest py-4 hover:bg-ink-soft transition-colors duration-300 disabled:opacity-50 mb-4"
+              <Link
+                href="/checkout"
+                className="w-full bg-torii text-snow font-body text-sm tracking-widest py-4 hover:bg-torii-dark transition-colors duration-300 block text-center mb-4"
               >
-                {loading ? 'PROCESANDO...' : 'PROCEDER AL PAGO'}
-              </button>
+                PROCEDER AL PAGO
+              </Link>
 
               <Link href="/productos" className="block text-center font-body text-xs text-stone hover:text-ink transition-colors tracking-widest">
                 CONTINUAR COMPRANDO

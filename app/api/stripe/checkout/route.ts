@@ -3,7 +3,7 @@ import { stripe } from '@/lib/stripe'
 
 export async function POST(request: NextRequest) {
   try {
-    const { items } = await request.json()
+    const { items, shippingData } = await request.json()
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: 'Carrito vacío' }, { status: 400 })
@@ -42,8 +42,17 @@ export async function POST(request: NextRequest) {
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/gracias?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/carrito`,
       locale: 'es',
+      customer_email: shippingData?.email,
       metadata: {
         items: JSON.stringify(items.map((i: any) => ({ id: i.id, quantity: i.quantity }))),
+        shipping_name: shippingData?.name ?? '',
+        shipping_phone: shippingData?.phone ?? '',
+        shipping_street: shippingData?.street ?? '',
+        shipping_colony: shippingData?.colony ?? '',
+        shipping_city: shippingData?.city ?? '',
+        shipping_state: shippingData?.state ?? '',
+        shipping_zip: shippingData?.zip ?? '',
+        shipping_notes: shippingData?.notes ?? '',
       },
     })
 
