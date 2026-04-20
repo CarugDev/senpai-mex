@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import OrderStatusForm from '@/components/admin/OrderStatusForm'
+import { stripe } from '@/lib/stripe'
 
 export default async function OrdenDetallePage({ params }: { params: { orderId: string } }) {
   const order = await prisma.order.findUnique({
@@ -10,6 +11,24 @@ export default async function OrdenDetallePage({ params }: { params: { orderId: 
   })
 
   if (!order) notFound()
+
+  let shippingData = null
+  if (order.stripeSessionId) {
+    try {
+      const session = await stripe.checkout.sessions.retrieve(order.stripeSessionId)
+      shippingData = {
+        name: session.metadata?.shipping_name,
+        phone: session.metadata?.shipping_phone,
+        street: session.metadata?.shipping_street,
+        colony: session.metadata?.shipping_colony,
+        city: session.metadata?.shipping_city,
+        state: session.metadata?.shipping_state,
+        zip: session.metadata?.shipping_zip,
+        notes: session.metadata?.shipping_notes,
+        email: session.customer_email,
+      }
+    } catch (e) {}
+  }
 
   return (
     <div>
@@ -62,6 +81,38 @@ export default async function OrdenDetallePage({ params }: { params: { orderId: 
               <p className="font-mono text-xs text-stone mt-2 break-all">Stripe: {order.stripeSessionId}</p>
             )}
           </div>
+
+          {shippingData && (
+            <div className="bg-snow p-8">
+              <h2 className="font-display text-xl text-ink mb-6">Datos de envío</h2>
+              <div className="space-y-3">
+                <div>
+                  <p className="label-sm mb-1">Nombre</p>
+                  <p className="font-body text-sm text-ink">{shippingData.name}</p>
+                </div>
+                <div>
+                  <p className="label-sm mb-1">Teléfono</p>
+                  <p className="font-body text-sm text-ink">{shippingData.phone}</p>
+                </div>
+                <div>
+                  <p className="label-sm mb-1">Correo</p>
+                  <p className="font-body text-sm text-ink">{shippingData.email}</p>
+                </div>
+                <div>
+                  <p className="label-sm mb-1">Dirección</p>
+                  <p className="font-body text-sm text-ink">{shippingData.street}</p>
+                  <p className="font-body text-sm text-ink">{shippingData.colony}</p>
+                  <p className="font-body text-sm text-ink">{shippingData.city}, {shippingData.state} {shippingData.zip}</p>
+                </div>
+                {shippingData.notes && (
+                  <div>
+                    <p className="label-sm mb-1">Notas</p>
+                    <p className="font-body text-sm text-stone">{shippingData.notes}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="bg-snow p-8">
             <h2 className="font-display text-xl text-ink mb-6">Estado</h2>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
+import { sendOrderConfirmation } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   const body = await request.text()
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
 
         const shipping = subtotal >= 800 ? 0 : 150
 
-        await prisma.order.create({
+        const order = await prisma.order.create({
           data: {
             userId: user.id,
             status: 'PAID',
@@ -62,6 +63,34 @@ export async function POST(request: NextRequest) {
               create: orderItems
             }
           }
+        })
+
+        const sessionData = event.data.object as any
+        const shippingAddress = [
+          sessionData.metadata?.shipping_street,
+          sessionData.metadata?.shipping_colony,
+          sessionData.metadata?.shipping_city,
+          sessionData.metadata?.shipping_state,
+          sessionData.metadata?.shipping_zip,
+        ].filter(Boolean).join(', ')
+
+        const orderItemsForEmail = items.map((item: any) => {
+          const product = products.find((p: any) => p.id === item.id)
+          return {
+            name: product?.name ?? 'Producto',
+            quantity: item.quantity,
+            price: Number(product?.price ?? 0),
+          }
+        })
+
+        await sendOrderConfirmation({
+          customerEmail: sessionData.customer_details?.email ?? sessionData.metadata?.shipping_email ?? '',
+          customerName: sessionData.metadata?.shipping_name ?? 'Cliente',
+          orderId: order.id,
+          items: orderItemsForEmail,
+          total: Number(order.total),
+          shipping: Number(order.shipping),
+          shippingAddress,
         })
       }
     } catch (error) {

@@ -109,9 +109,9 @@ export default function Navbar() {
         </div>
 
         {menuOpen && (
-          <div className="md:hidden bg-mist border-t border-ink/8 py-8 space-y-6">
+          <div className="md:hidden bg-mist border-t border-ink/8 py-8 px-6 space-y-6">
             {[['Belleza', '/productos?category=belleza'], ['Ropa', '/productos?category=ropa'], ['Bags', '/productos?category=bags'], ['Tés', '/productos?category=tes'], ['Varios', '/productos?category=varios'], ['Nosotros', '/nosotros']].map(([label, href]) => (
-              <Link key={label} href={href} className="block font-body text-sm text-ink/70 hover:text-ink tracking-wide" onClick={() => setMenuOpen(false)}>
+              <Link key={label} href={href} className="block font-body text-sm text-ink/70 hover:text-ink tracking-wide py-2" onClick={() => setMenuOpen(false)}>
                 {label}
               </Link>
             ))}
