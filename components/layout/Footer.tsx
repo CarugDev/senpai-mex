@@ -11,7 +11,7 @@ export default function Footer() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">
           {[
-            { title: 'Tienda', links: [['Todos los productos', '/productos'], ['Belleza', '/productos?category=belleza'], ['Ropa', '/productos?category=ropa'], ['Bags', '/productos?category=bags'], ['Tés', '/productos?category=tes']] },
+            { title: 'Tienda', links: [['Todos los productos', '/productos'], ['Belleza', '/productos?category=belleza'], ['Ropa', '/productos?category=ropa'], ['Bags', '/productos?category=bags'], ['Tés', '/productos?category=tes'], ['Varios', '/productos?category=varios']] },
             { title: 'Nosotros', links: [['Nuestra historia', '/nosotros'], ['De Japón a México', '/origen'], ['Contacto', '/contacto']] },
             { title: 'Ayuda', links: [['Guía de envíos', '/envios'], ['Devoluciones', '/devoluciones'], ['Preguntas frecuentes', '/faq']] },
             { title: 'Legal', links: [['Privacidad', '/privacidad'], ['Términos de uso', '/terminos']] },
