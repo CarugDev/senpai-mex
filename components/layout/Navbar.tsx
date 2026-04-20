@@ -82,9 +82,6 @@ export default function Navbar() {
             </Link>
             {user ? (
               <div className="flex items-center gap-6">
-                <Link href="/perfil" className={utilLinkClass}>
-                  Mi cuenta
-                </Link>
                 <button
                   onClick={handleLogout}
                   className={`font-body text-sm border-b pb-0.5 transition-colors duration-300 ${scrolled ? 'text-ink border-ink/30 hover:border-ink' : 'text-snow/80 border-snow/30 hover:text-snow hover:border-snow'}`}
@@ -119,7 +116,6 @@ export default function Navbar() {
               <Link href="/carrito" className="block font-body text-sm text-ink/60" onClick={() => setMenuOpen(false)}>Carrito</Link>
               {user ? (
                 <>
-                  <Link href="/perfil" className="block font-body text-sm text-ink/60" onClick={() => setMenuOpen(false)}>Mi cuenta</Link>
                   <button onClick={() => { handleLogout(); setMenuOpen(false) }} className="block font-body text-sm text-ink">
                     Salir
                   </button>
