@@ -1,7 +1,15 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient } from '@supabase/supabase-js'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname
+
+  const publicRoutes = ['/login', '/registro', '/recuperar', '/actualizar-password']
+  if (publicRoutes.some(route => pathname.startsWith(route))) {
+    return NextResponse.next()
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -26,28 +34,29 @@ export async function middleware(request: NextRequest) {
   const protectedRoutes = ['/checkout', '/perfil']
   const adminRoutes = ['/admin']
 
-  const isProtected = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route))
-  const isAdmin = adminRoutes.some(route => request.nextUrl.pathname.startsWith(route))
+  const isProtected = protectedRoutes.some(route => pathname.startsWith(route))
+  const isAdmin = adminRoutes.some(route => pathname.startsWith(route))
+
+  if (!user && (isProtected || isAdmin)) {
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
 
   if (user && isAdmin) {
-  const { createClient } = await import('@supabase/supabase-js')
-  const adminClient = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
-  
-  const { data: profile, error } = await adminClient
-    .from('users')
-    .select('role')
-    .eq('id', user.id)
-    .single()
+    const adminClient = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    )
 
-  console.log('Admin check:', { userId: user.id, profile, error })
+    const { data: profile } = await adminClient
+      .from('users')
+      .select('role')
+      .eq('id', user.id)
+      .single()
 
-  if (!profile || profile.role !== 'ADMIN') {
-    return NextResponse.redirect(new URL('/', request.url))
+    if (!profile || profile.role !== 'ADMIN') {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
   }
-}
 
   return supabaseResponse
 }

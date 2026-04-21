@@ -10,6 +10,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
@@ -24,7 +25,10 @@ export default function LoginPage() {
       return
     }
 
-    window.location.href = '/admin/dashboard'
+    const res = await fetch('/api/auth/check-role')
+    const { role } = await res.json()
+
+    window.location.href = role === 'ADMIN' ? '/admin/dashboard' : '/'
   }
 
   return (
@@ -50,14 +54,23 @@ export default function LoginPage() {
 
           <div>
             <label className="label-sm block mb-2">Contraseña</label>
-            <input
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              className="w-full bg-transparent border-b border-ink/20 focus:border-ink outline-none py-3 font-body text-sm text-ink transition-colors duration-300"
-              placeholder="••••••••"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                className="w-full bg-transparent border-b border-ink/20 focus:border-ink outline-none py-3 font-body text-sm text-ink transition-colors duration-300 pr-10"
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-0 top-3 font-body text-xs text-stone hover:text-ink transition-colors"
+              >
+                {showPassword ? 'OCULTAR' : 'VER'}
+              </button>
+            </div>
           </div>
 
           {error && (

@@ -8,7 +8,7 @@ export async function GET() {
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) {
-      return NextResponse.json({ role: null })
+      return NextResponse.json({ role: 'CUSTOMER' })
     }
 
     const profile = await prisma.user.findUnique({
@@ -16,8 +16,20 @@ export async function GET() {
       select: { role: true }
     })
 
-    return NextResponse.json({ role: profile?.role ?? null })
+    if (!profile) {
+      await prisma.user.create({
+        data: {
+          id: user.id,
+          email: user.email!,
+          name: user.user_metadata?.name ?? '',
+          role: 'CUSTOMER',
+        }
+      })
+      return NextResponse.json({ role: 'CUSTOMER' })
+    }
+
+    return NextResponse.json({ role: profile.role })
   } catch {
-    return NextResponse.json({ role: null })
+    return NextResponse.json({ role: 'CUSTOMER' })
   }
 }

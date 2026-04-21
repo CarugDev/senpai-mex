@@ -10,6 +10,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const items = useCart(s => s.items)
   const count = useCart(s => s.count)
   const [cartCount, setCartCount] = useState(0)
@@ -34,9 +35,20 @@ export default function Navbar() {
     return () => subscription.unsubscribe()
   }, [])
 
+  useEffect(() => {
+    if (user) {
+      fetch('/api/auth/check-role')
+        .then(r => r.json())
+        .then(d => setIsAdmin(d.role === 'ADMIN'))
+    } else {
+      setIsAdmin(false)
+    }
+  }, [user])
+
   async function handleLogout() {
     await supabase.auth.signOut()
     setUser(null)
+    window.location.href = '/'
   }
 
   const linkClass = scrolled
@@ -77,20 +89,26 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8 ml-auto">
-            <Link href="/carrito" className={utilLinkClass}>
+            <Link href="/carrito" className={`relative font-body text-sm transition-colors duration-300 tracking-wide ${scrolled ? 'text-ink/60 hover:text-ink' : 'text-snow/80 hover:text-snow'}`}>
               Carrito ({cartCount})
             </Link>
             {user ? (
               <div className="flex items-center gap-6">
-                <button
-                  onClick={handleLogout}
-                  className={`font-body text-sm border-b pb-0.5 transition-colors duration-300 ${scrolled ? 'text-ink border-ink/30 hover:border-ink' : 'text-snow/80 border-snow/30 hover:text-snow hover:border-snow'}`}
-                >
+                {isAdmin ? (
+                  <Link href="/admin/dashboard" className={`font-body text-sm transition-colors duration-300 ${scrolled ? 'text-ink/60 hover:text-ink' : 'text-snow/80 hover:text-snow'}`}>
+                    Panel Admin
+                  </Link>
+                ) : (
+                  <Link href="/perfil" className={`font-body text-sm transition-colors duration-300 ${scrolled ? 'text-ink/60 hover:text-ink' : 'text-snow/80 hover:text-snow'}`}>
+                    Mi cuenta
+                  </Link>
+                )}
+                <button onClick={handleLogout} className={`font-body text-sm border-b pb-0.5 transition-colors duration-300 ${scrolled ? 'text-ink border-ink/30 hover:border-ink' : 'text-snow/80 border-snow/30 hover:border-snow'}`}>
                   Salir
                 </button>
               </div>
             ) : (
-              <Link href="/login" className="font-body text-sm bg-torii text-snow px-4 py-2 hover:bg-torii-dark transition-colors duration-300">
+              <Link href="/login" className={`font-body text-sm border-b pb-0.5 transition-colors duration-300 ${scrolled ? 'text-ink border-ink/30 hover:border-ink' : 'text-snow/80 border-snow/30 hover:border-snow'}`}>
                 Ingresar
               </Link>
             )}
@@ -116,6 +134,11 @@ export default function Navbar() {
               <Link href="/carrito" className="block font-body text-sm text-ink/60" onClick={() => setMenuOpen(false)}>Carrito</Link>
               {user ? (
                 <>
+                  {isAdmin ? (
+                    <Link href="/admin/dashboard" className="block font-body text-sm text-ink/60" onClick={() => setMenuOpen(false)}>Panel Admin</Link>
+                  ) : (
+                    <Link href="/perfil" className="block font-body text-sm text-ink/60" onClick={() => setMenuOpen(false)}>Mi cuenta</Link>
+                  )}
                   <button onClick={() => { handleLogout(); setMenuOpen(false) }} className="block font-body text-sm text-ink">
                     Salir
                   </button>
