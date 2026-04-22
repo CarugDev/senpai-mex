@@ -1,5 +1,6 @@
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
@@ -9,13 +10,17 @@ export default async function PerfilPage() {
 
   if (!user) redirect('/login')
 
-  let orders: Awaited<ReturnType<typeof prisma.order.findMany>> = []
+  let orders: Prisma.OrderGetPayload<{ include: { items: { include: { product: true } } } }>[] = []
   let profile: { name: string | null; email: string; role: string; createdAt: Date } | null = null
 
   try {
     orders = await prisma.order.findMany({
       where: { userId: user.id },
-      include: { items: { include: { product: true } } },
+      include: {
+        items: {
+          include: { product: true }
+        }
+      },
       orderBy: { createdAt: 'desc' },
     })
 
