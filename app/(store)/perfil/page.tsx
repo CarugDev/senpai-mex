@@ -9,16 +9,31 @@ export default async function PerfilPage() {
 
   if (!user) redirect('/login')
 
-  const orders = await prisma.order.findMany({
-    where: { userId: user.id },
-    include: { items: { include: { product: true } } },
-    orderBy: { createdAt: 'desc' },
-  })
+  let orders: Awaited<ReturnType<typeof prisma.order.findMany>> = []
+  let profile: { name: string; email: string; role: string; createdAt: Date } | null = null
 
-  const profile = await prisma.user.findUnique({
-    where: { id: user.id },
-    select: { name: true, email: true, role: true, createdAt: true }
-  })
+  try {
+    orders = await prisma.order.findMany({
+      where: { userId: user.id },
+      include: { items: { include: { product: true } } },
+      orderBy: { createdAt: 'desc' },
+    })
+
+    profile = await prisma.user.findUnique({
+      where: { id: user.id },
+      select: { name: true, email: true, role: true, createdAt: true }
+    })
+  } catch (error) {
+    console.error('Perfil error:', error)
+    return (
+      <div className="min-h-screen bg-mist pt-32 flex items-center justify-center">
+        <div className="text-center">
+          <p className="font-display text-2xl text-ink mb-4">Error cargando perfil</p>
+          <p className="font-body text-sm text-stone">Por favor intenta de nuevo</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-mist pt-32 pb-32">
