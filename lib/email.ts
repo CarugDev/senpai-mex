@@ -34,7 +34,7 @@ export async function sendOrderConfirmation({
   `).join('')
 
   await resend.emails.send({
-    from: 'Senpai Mex <onboarding@resend.dev>',
+    from: 'Senpai Mex <hola@senpaimex.com>',
     to: customerEmail,
     subject: 'ありがとう — Tu pedido fue confirmado',
     html: `
