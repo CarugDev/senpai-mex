@@ -10,7 +10,7 @@ export default async function PerfilPage() {
   if (!user) redirect('/login')
 
   let orders: Awaited<ReturnType<typeof prisma.order.findMany>> = []
-  let profile: { name: string; email: string; role: string; createdAt: Date } | null = null
+  let profile: { name: string | null; email: string; role: string; createdAt: Date } | null = null
 
   try {
     orders = await prisma.order.findMany({
