@@ -50,10 +50,10 @@ export default function RegisterPage() {
           <p className="font-display text-5xl text-matcha mb-6">✓</p>
           <h2 className="font-display text-2xl text-ink mb-4">Cuenta creada</h2>
           <p className="font-body text-sm text-stone leading-relaxed mb-8">
-            Te enviamos un correo de confirmación. Revisa tu bandeja de entrada para activar tu cuenta.
+            Tu cuenta ha sido creada exitosamente. Ya puedes iniciar sesión.
           </p>
-          <Link href="/login" className="font-body text-sm tracking-widest border-b border-ink/30 hover:border-ink transition-colors pb-1">
-            IR AL LOGIN
+          <Link href="/login" className="font-body text-sm tracking-widest bg-torii text-snow px-10 py-4 hover:bg-torii-dark transition-colors duration-300 inline-block">
+            INICIAR SESIÓN
           </Link>
         </div>
       </div>
