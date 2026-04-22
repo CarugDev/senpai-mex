@@ -19,7 +19,7 @@ const config: Config = {
         'ink-soft': '#2C2C2E',
         torii: '#C0392B',
         'torii-dark': '#96281B',
-        'torii-light': '#E74C3C',
+        'torii-light': '#FF4136',
         sakura: '#F8BBD0',
         'sakura-dark': '#F06292',
         navy: '#1B2A4A',

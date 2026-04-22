@@ -43,7 +43,7 @@ export default function HomePage() {
             className="object-cover object-center"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/50 to-ink/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/70 to-ink/40" />
         </div>
 
         <div className="container-jp relative z-10 w-full">
@@ -63,7 +63,7 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             >
               Un poco<br />
-              <em className="not-italic text-torii-light">de Tokio</em><br />
+              <em className="not-italic text-torii-light" style={{ textShadow: '0 0 8px rgba(255, 65, 54, 0.9), 0 0 20px rgba(255, 65, 54, 0.6), 0 0 35px rgba(255, 65, 54, 0.3)' }}>de Tokio</em><br />
               en México
             </motion.h1>
             <motion.p
