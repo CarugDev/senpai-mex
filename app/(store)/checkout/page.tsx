@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCart } from '@/hooks/useCart'
 import Link from 'next/link'
+import { supabase } from '@/hooks/useAuth'
 
 const ESTADOS_MEXICO = [
   'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche',
@@ -26,6 +27,14 @@ export default function CheckoutPage() {
     zip: '',
     notes: '',
   })
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user?.email) {
+        setForm(prev => ({ ...prev, email: session.user.email! }))
+      }
+    })
+  }, [])
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -96,7 +105,15 @@ export default function CheckoutPage() {
                   </div>
                   <div>
                     <label className={labelClass}>Correo electrónico *</label>
-                    <input name="email" type="email" value={form.email} onChange={handleChange} required className={inputClass} placeholder="tu@correo.com" />
+                    <input
+                      name="email"
+                      type="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                      placeholder="tu@correo.com"
+                    />
                   </div>
                   <div>
                     <label className={labelClass}>Teléfono *</label>
