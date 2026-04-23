@@ -98,6 +98,9 @@ export default function CartPage() {
                     {total() >= 1000 ? 'Gratis' : '$180.00 MXN'}
                   </span>
                 </div>
+                <p className="font-body text-xs text-stone mt-2 leading-relaxed">
+                  Envío gratis a <span className="text-matcha font-medium">Durango</span> · Gratis en pedidos mayores a $1,000 MXN · $180 MXN para otros estados
+                </p>
                 <div className="border-t border-ink/8 pt-4 flex justify-between">
                   <span className="font-body text-sm text-ink font-medium">Total</span>
                   <span className="font-body text-sm text-ink font-medium">
