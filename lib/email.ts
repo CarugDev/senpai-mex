@@ -73,7 +73,7 @@ export async function sendOrderConfirmation({
             <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #EDE8E1;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                 <span style="font-size: 13px; color: #8C8880;">Envío</span>
-                <span style="font-size: 13px; color: #1A1A1A;">${shipping === 0 ? 'Gratis' : '$150.00 MXN'}</span>
+                <span style="font-size: 13px; color: #1A1A1A;">${shipping === 0 ? 'Gratis' : '$180.00 MXN'}</span>
               </div>
               <div style="display: flex; justify-content: space-between;">
                 <span style="font-size: 14px; font-weight: bold; color: #1A1A1A;">Total</span>

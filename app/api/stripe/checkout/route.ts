@@ -22,7 +22,9 @@ export async function POST(request: NextRequest) {
     }))
 
     const subtotal = items.reduce((sum: number, i: any) => sum + i.price * i.quantity, 0)
-    const shipping = subtotal >= 800 ? 0 : 150
+    const shippingState = shippingData?.state ?? ''
+    const isDurango = shippingState === 'Durango'
+    const shipping = isDurango ? 0 : (subtotal >= 1000 ? 0 : 180)
 
     if (shipping > 0) {
       lineItems.push({

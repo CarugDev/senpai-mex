@@ -76,7 +76,8 @@ export default function CheckoutPage() {
   }
 
   const subtotal = total()
-  const shipping = subtotal >= 800 ? 0 : 150
+  const isDurango = form.state === 'Durango'
+  const shipping = isDurango ? 0 : (subtotal >= 1000 ? 0 : 180)
   const orderTotal = subtotal + shipping
 
   const inputClass = "w-full bg-transparent border-b border-ink/20 focus:border-ink outline-none py-3 font-body text-sm text-ink transition-colors duration-300"
@@ -183,7 +184,7 @@ export default function CheckoutPage() {
                   <div className="flex justify-between">
                     <span className="font-body text-sm text-stone">Envío</span>
                     <span className={`font-body text-sm ${shipping === 0 ? 'text-matcha' : 'text-ink'}`}>
-                      {shipping === 0 ? 'Gratis' : '$150.00 MXN'}
+                      {shipping === 0 ? 'Gratis' : '$180.00 MXN'}
                     </span>
                   </div>
                   <div className="border-t border-ink/8 pt-3 flex justify-between">
@@ -192,9 +193,15 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {subtotal < 800 && (
+                {isDurango && (
+                  <p className="font-body text-xs text-matcha mt-2 text-center">
+                    ✓ Envío gratuito a Durango
+                  </p>
+                )}
+
+                {!isDurango && subtotal < 1000 && (
                   <p className="font-body text-xs text-stone mt-4 text-center">
-                    Agrega ${(800 - subtotal).toFixed(2)} MXN más para envío gratis
+                    Agrega ${(1000 - subtotal).toFixed(2)} MXN más para envío gratis
                   </p>
                 )}
 

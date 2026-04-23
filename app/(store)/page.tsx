@@ -103,7 +103,7 @@ export default function HomePage() {
       {/* ANNOUNCEMENT STRIP */}
       <div className="bg-torii text-snow py-3">
         <p className="font-body text-xs tracking-[0.2em] text-center">
-          ENVÍO GRATIS EN COMPRAS MAYORES A $800 MXN · PAGO SEGURO · PRODUCTOS 100% AUTÉNTICOS
+          ENVÍO GRATIS EN COMPRAS MAYORES A $1,000 MXN · GRATIS A DURANGO · PAGO SEGURO · PRODUCTOS 100% AUTÉNTICOS
         </p>
       </div>
 
