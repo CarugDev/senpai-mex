@@ -14,6 +14,7 @@ interface Product {
   compareAt: number | null
   images: string[]
   origin: string
+  stock: number
   category: { name: string }
 }
 
