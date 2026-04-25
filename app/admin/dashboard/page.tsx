@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 
+export const revalidate = 0
+
 export default async function DashboardPage() {
   const [productCount, orderCount, categoryCount] = await Promise.all([
     prisma.product.count({ where: { isActive: true } }),

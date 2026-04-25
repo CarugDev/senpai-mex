@@ -1,10 +1,34 @@
-import { prisma } from '@/lib/prisma'
+'use client'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-export default async function AdminProductosPage() {
-  const products = await prisma.product.findMany({
-    include: { category: true },
-    orderBy: { createdAt: 'desc' },
+type Product = {
+  id: string
+  name: string
+  slug: string
+  price: number
+  stock: number
+  isActive: boolean
+  isFeatured: boolean
+  images: string[]
+  category: { name: string }
+}
+
+export default function AdminProductosPage() {
+  const [products, setProducts] = useState<Product[]>([])
+  const [filter, setFilter] = useState('todos')
+
+  useEffect(() => {
+    fetch('/api/admin/productos/all')
+      .then(r => r.json())
+      .then(d => setProducts(d.products ?? []))
+  }, [])
+
+  const filtered = products.filter(p => {
+    if (filter === 'activos') return p.isActive
+    if (filter === 'agotados') return p.stock === 0
+    if (filter === 'destacados') return p.isFeatured
+    return true
   })
 
   return (
@@ -18,10 +42,31 @@ export default async function AdminProductosPage() {
           + NUEVO PRODUCTO
         </Link>
       </div>
+      <div className="flex gap-3 mb-8">
+        {[
+          { key: 'todos', label: 'Todos' },
+          { key: 'activos', label: 'Activos' },
+          { key: 'agotados', label: 'Agotados' },
+          { key: 'destacados', label: 'Destacados' },
+        ].map(f => (
+          <button
+            key={f.key}
+            onClick={() => setFilter(f.key)}
+            className={`font-body text-xs tracking-widest px-4 py-2 transition-colors duration-200 ${
+              filter === f.key
+                ? 'bg-ink text-snow'
+                : 'border border-ink/20 text-stone hover:border-ink hover:text-ink'
+            }`}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
       <div className="bg-snow">
         <table className="w-full">
           <thead>
             <tr className="border-b border-ink/8">
+              <th className="label-sm text-left p-6">Imagen</th>
               <th className="label-sm text-left p-6">Producto</th>
               <th className="label-sm text-left p-6">Categoría</th>
               <th className="label-sm text-left p-6">Precio</th>
@@ -31,8 +76,19 @@ export default async function AdminProductosPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map(product => (
+            {filtered.map(product => (
               <tr key={product.id} className="border-b border-ink/5 hover:bg-mist transition-colors">
+                <td className="p-6">
+                  {product.images[0] ? (
+                    <div className="w-12 h-12 overflow-hidden bg-mist flex-shrink-0">
+                      <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 bg-mist-dark flex items-center justify-center">
+                      <span className="font-display text-lg text-stone/30">先</span>
+                    </div>
+                  )}
+                </td>
                 <td className="p-6">
                   <p className="font-display text-base text-ink">{product.name}</p>
                   <p className="font-body text-xs text-stone mt-1">{product.slug}</p>
