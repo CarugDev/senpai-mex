@@ -25,13 +25,16 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: 'easeOut' }}>
       <Link href={`/productos/${product.slug}`} className="group block">
-        <div className="relative aspect-[3/4] overflow-hidden bg-snow mb-5">
+        <div className="relative w-full overflow-hidden bg-snow mb-5" style={{ paddingBottom: '133%' }}>
           {product.images[0] ? (
             <Image
               src={product.images[0]}
               alt={product.name}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              quality={80}
+              className="object-cover transition-transform duration-700 group-hover:scale-105 absolute inset-0 w-full h-full"
             />
           ) : (
             <div className="w-full h-full bg-mist-dark flex items-center justify-center">

@@ -32,6 +32,7 @@ export default function NosotrosPage() {
           alt="Ciudad japonesa"
           fill
           className="object-cover object-center"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-ink/40" />
         <div className="absolute bottom-12 left-0 right-0 container-jp">
@@ -66,6 +67,7 @@ export default function NosotrosPage() {
                   alt="Templo japonés de noche"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </AnimateIn>
@@ -84,6 +86,7 @@ export default function NosotrosPage() {
                   alt="Campos de té en Japón"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </AnimateIn>

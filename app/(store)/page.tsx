@@ -43,6 +43,7 @@ export default function HomePage() {
             fill
             className="object-cover object-center"
             priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/70 to-ink/40" />
         </div>

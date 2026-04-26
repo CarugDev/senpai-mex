@@ -29,6 +29,8 @@ export default async function ProductPage({
                 alt={product.name}
                 fill
                 className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={85}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
