@@ -16,7 +16,7 @@ export async function PUT(request: NextRequest, { params }: { params: { slug: st
 
 export async function DELETE(request: NextRequest, { params }: { params: { slug: string } }) {
   try {
-    await prisma.product.update({ where: { id: params.slug }, data: { isActive: false } })
+    await prisma.product.delete({ where: { id: params.slug } })
     return NextResponse.json({ success: true })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
