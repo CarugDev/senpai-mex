@@ -66,7 +66,6 @@ export default function AdminProductosPage() {
         <table className="w-full">
           <thead>
             <tr className="border-b border-ink/8">
-              <th className="label-sm text-left p-6">Imagen</th>
               <th className="label-sm text-left p-6">Producto</th>
               <th className="label-sm text-left p-6">Categoría</th>
               <th className="label-sm text-left p-6">Precio</th>
@@ -78,17 +77,6 @@ export default function AdminProductosPage() {
           <tbody>
             {filtered.map(product => (
               <tr key={product.id} className="border-b border-ink/5 hover:bg-mist transition-colors">
-                <td className="p-6">
-                  {product.images[0] ? (
-                    <div className="w-12 h-12 overflow-hidden bg-mist flex-shrink-0">
-                      <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="w-12 h-12 bg-mist-dark flex items-center justify-center">
-                      <span className="font-display text-lg text-stone/30">先</span>
-                    </div>
-                  )}
-                </td>
                 <td className="p-6">
                   <p className="font-display text-base text-ink">{product.name}</p>
                   <p className="font-body text-xs text-stone mt-1">{product.slug}</p>

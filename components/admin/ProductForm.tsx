@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/hooks/useAuth'
 
 interface Category { id: string; name: string }
 interface Product {
@@ -41,23 +40,21 @@ export default function ProductForm({ categories, product }: { categories: Categ
     const newImages: string[] = []
 
     for (const file of Array.from(files)) {
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+      const formData = new FormData()
+      formData.append('file', file)
 
-      const { error } = await supabase.storage
-        .from('productos')
-        .upload(fileName, file, { upsert: true })
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      })
 
-      if (error) {
-        alert(`Error subiendo ${file.name}: ${error.message}`)
+      if (!res.ok) {
+        alert(`Error subiendo ${file.name}`)
         continue
       }
 
-      const { data } = supabase.storage
-        .from('productos')
-        .getPublicUrl(fileName)
-
-      newImages.push(data.publicUrl)
+      const { url } = await res.json()
+      newImages.push(url)
     }
 
     const allImages = [...uploadedImages, ...newImages]
