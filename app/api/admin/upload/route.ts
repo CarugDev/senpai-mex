@@ -19,6 +19,8 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer())
 
     const webpBuffer = await sharp(buffer)
+      .rotate()
+      .withMetadata()
       .webp({ quality: 82 })
       .toBuffer()
 

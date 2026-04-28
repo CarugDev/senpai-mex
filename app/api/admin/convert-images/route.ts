@@ -28,12 +28,6 @@ export async function POST(request: NextRequest) {
     let changed = false
 
     for (const imageUrl of product.images) {
-      if (imageUrl.endsWith('.webp')) {
-        newImages.push(imageUrl)
-        results.skipped++
-        continue
-      }
-
       try {
         const response = await fetch(imageUrl)
         if (!response.ok) throw new Error(`Failed to fetch ${imageUrl}`)
@@ -41,6 +35,8 @@ export async function POST(request: NextRequest) {
         const buffer = Buffer.from(await response.arrayBuffer())
 
         const webpBuffer = await sharp(buffer)
+          .rotate()
+          .withMetadata()
           .webp({ quality: 82 })
           .toBuffer()
 
