@@ -1,7 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import AddToCartButton from '@/components/store/AddToCartButton'
+
+export const revalidate = 0
 
 export default async function ProductPage({
   params,
@@ -23,14 +24,11 @@ export default async function ProductPage({
       <div className="container-jp">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
           <div className="relative aspect-square bg-snow overflow-hidden">
-            {product.images[0] ? (
-              <Image
+            {product.images && product.images.length > 0 && product.images[0] ? (
+              <img
                 src={product.images[0]}
                 alt={product.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                quality={85}
+                className="w-full h-full object-cover"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
