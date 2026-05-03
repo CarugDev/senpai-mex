@@ -1,6 +1,8 @@
 import ProductForm from '@/components/admin/ProductForm'
 import { prisma } from '@/lib/prisma'
 
+export const dynamic = 'force-dynamic'
+
 export default async function NuevoProductoPage() {
   const categories = await prisma.category.findMany({ orderBy: { name: 'asc' } })
   return (

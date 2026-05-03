@@ -1,6 +1,8 @@
 import AnimateIn from '@/components/ui/AnimateIn'
 import Link from 'next/link'
 
+export const revalidate = 60
+
 export const metadata = { title: 'Envíos y entregas', description: 'Información sobre envíos a toda la República Mexicana.' }
 
 export default function EnviosPage() {

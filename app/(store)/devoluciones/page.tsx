@@ -1,6 +1,8 @@
 import AnimateIn from '@/components/ui/AnimateIn'
 import Link from 'next/link'
 
+export const revalidate = 60
+
 export const metadata = { title: 'Devoluciones', description: 'Política de devoluciones de Senpai Mex.' }
 
 export default function DevolucionesPage() {

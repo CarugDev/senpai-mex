@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import AnimateIn from '@/components/ui/AnimateIn'
 
+export const revalidate = 60
+
 export const metadata = { title: 'De Japón a México', description: 'Conoce el origen de nuestros productos japoneses.' }
 
 export default function OrigenPage() {

@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import ProductCard from '@/components/store/ProductCard'
 
+export const revalidate = 60
+
 export default async function ProductosPage({
   searchParams,
 }: {

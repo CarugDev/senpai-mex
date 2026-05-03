@@ -1,5 +1,7 @@
 import AnimateIn from '@/components/ui/AnimateIn'
 
+export const revalidate = 60
+
 export const metadata = { title: 'Política de privacidad', description: 'Política de privacidad de Senpai Mex.' }
 
 export default function PrivacidadPage() {

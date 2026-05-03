@@ -1,6 +1,8 @@
 import AnimateIn from '@/components/ui/AnimateIn'
 import Link from 'next/link'
 
+export const revalidate = 60
+
 export const metadata = { title: 'Preguntas frecuentes', description: 'Resolvemos tus dudas sobre Senpai Mex.' }
 
 export default function FaqPage() {

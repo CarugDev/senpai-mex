@@ -1,5 +1,7 @@
 import AnimateIn from '@/components/ui/AnimateIn'
 
+export const revalidate = 60
+
 export const metadata = { title: 'Términos de uso', description: 'Términos y condiciones de uso de Senpai Mex.' }
 
 export default function TerminosPage() {

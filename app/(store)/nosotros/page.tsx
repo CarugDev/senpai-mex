@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import AnimateIn from '@/components/ui/AnimateIn'
 
+export const revalidate = 60
+
 export const metadata = {
   title: 'Nuestra Historia',
   description: 'Conoce la historia detrás de Senpai Mex — de Tokio a México.',

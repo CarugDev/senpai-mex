@@ -1,3 +1,5 @@
+// Use pooler URL from Supabase for production
+
 generator client {
   provider = "prisma-client-js"
 }
