@@ -48,7 +48,9 @@ export async function POST(request: NextRequest) {
           return sum + Number(item.price) * item.quantity
         }, 0)
 
-        const shipping = subtotal >= 800 ? 0 : 150
+        const shippingState = session.metadata?.shipping_state ?? ''
+        const isDurango = shippingState === 'Durango'
+        const shipping = isDurango ? 0 : (subtotal >= 1000 ? 0 : 180)
 
         const order = await prisma.order.create({
           data: {

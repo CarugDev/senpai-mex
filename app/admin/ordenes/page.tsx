@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 
+export const revalidate = 0
+
 export default async function AdminOrdenesPage() {
   const orders = await prisma.order.findMany({
     include: { user: true, items: { include: { product: true } } },
