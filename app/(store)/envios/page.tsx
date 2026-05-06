@@ -22,7 +22,7 @@ export default function EnviosPage() {
             <div className="bg-snow p-10">
               <p className="label-sm mb-4">Envío estándar</p>
               <p className="font-display text-4xl text-ink mb-2">$180 MXN</p>
-              <p className="font-body text-sm text-stone mb-6">En pedidos menores a $1,000 MXN</p>
+              <p className="font-body text-sm text-stone mb-6">En pedidos menores a $1,500 MXN</p>
               <ul className="space-y-3">
                 {['Entrega en 3-7 días hábiles', 'Número de rastreo incluido', 'Empaque protegido'].map(item => (
                   <li key={item} className="font-body text-sm text-ink flex items-center gap-3">
@@ -36,7 +36,7 @@ export default function EnviosPage() {
             <div className="bg-torii text-snow p-10">
               <p className="font-body text-xs uppercase tracking-[0.2em] text-snow/60 mb-4">Envío gratis</p>
               <p className="font-display text-4xl text-snow mb-2">$0 MXN</p>
-              <p className="font-body text-sm text-snow/60 mb-6">En pedidos mayores a $1,000 MXN o envíos a Durango</p>
+              <p className="font-body text-sm text-snow/60 mb-6">En pedidos mayores a $1,500 MXN o envíos a Durango</p>
               <ul className="space-y-3">
                 {['Entrega en 3-7 días hábiles', 'Número de rastreo incluido', 'Empaque protegido premium', 'Envío siempre gratuito a Durango'].map(item => (
                   <li key={item} className="font-body text-sm text-snow flex items-center gap-3">

@@ -77,7 +77,7 @@ export default function CheckoutPage() {
 
   const subtotal = total()
   const isDurango = form.state === 'Durango'
-  const shipping = isDurango ? 0 : (subtotal >= 1000 ? 0 : 180)
+  const shipping = isDurango ? 0 : (subtotal >= 1500 ? 0 : 180)
   const orderTotal = subtotal + shipping
 
   const inputClass = "w-full bg-transparent border-b border-ink/20 focus:border-ink outline-none py-3 font-body text-sm text-ink transition-colors duration-300"
@@ -199,9 +199,9 @@ export default function CheckoutPage() {
                   </p>
                 )}
 
-                {!isDurango && subtotal < 1000 && (
+                {!isDurango && subtotal < 1500 && (
                   <p className="font-body text-xs text-stone mt-4 text-center">
-                    Agrega ${(1000 - subtotal).toFixed(2)} MXN más para envío gratis
+                    Agrega ${(1500 - subtotal).toFixed(2)} MXN más para envío gratis
                   </p>
                 )}
 

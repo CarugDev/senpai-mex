@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
         const shippingState = session.metadata?.shipping_state ?? ''
         const isDurango = shippingState === 'Durango'
-        const shipping = isDurango ? 0 : (subtotal >= 1000 ? 0 : 180)
+        const shipping = isDurango ? 0 : (subtotal >= 1500 ? 0 : 180)
 
         const order = await prisma.order.create({
           data: {

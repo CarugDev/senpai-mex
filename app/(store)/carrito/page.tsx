@@ -95,23 +95,23 @@ export default function CartPage() {
                 <div className="flex justify-between">
                   <span className="font-body text-sm text-stone">Envío</span>
                   <span className="font-body text-sm text-matcha">
-                    {total() >= 1000 ? 'Gratis' : '$180.00 MXN'}
+                    {total() >= 1500 ? 'Gratis' : '$180.00 MXN'}
                   </span>
                 </div>
                 <p className="font-body text-xs text-stone mt-2 leading-relaxed">
-                  Envío gratis a <span className="text-matcha font-medium">Durango</span> · Gratis en pedidos mayores a $1,000 MXN · $180 MXN para otros estados
+                  Envío gratis a <span className="text-matcha font-medium">Durango</span> · Gratis en pedidos mayores a $1,500 MXN · $180 MXN para otros estados
                 </p>
                 <div className="border-t border-ink/8 pt-4 flex justify-between">
                   <span className="font-body text-sm text-ink font-medium">Total</span>
                   <span className="font-body text-sm text-ink font-medium">
-                    ${(total() >= 1000 ? total() : total() + 180).toFixed(2)} MXN
+                    ${(total() >= 1500 ? total() : total() + 180).toFixed(2)} MXN
                   </span>
                 </div>
               </div>
 
-              {total() < 1000 && (
+              {total() < 1500 && (
                 <p className="font-body text-xs text-stone mb-6 text-center">
-                  Agrega ${(1000 - total()).toFixed(2)} MXN más para envío gratis
+                  Agrega ${(1500 - total()).toFixed(2)} MXN más para envío gratis
                 </p>
               )}
 
