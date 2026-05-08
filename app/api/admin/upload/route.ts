@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { v2 as cloudinary } from 'cloudinary'
 import sharp from 'sharp'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,24 +25,22 @@ export async function POST(request: NextRequest) {
       .webp({ quality: 82 })
       .toBuffer()
 
-    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.webp`
+    const url = await new Promise<string>((resolve, reject) => {
+      cloudinary.uploader.upload_stream(
+        {
+          folder: 'senpai-mex/productos',
+          resource_type: 'image',
+          format: 'webp',
+          quality: 82,
+        },
+        (error, result) => {
+          if (error) reject(error)
+          else resolve(result!.secure_url)
+        }
+      ).end(webpBuffer)
+    })
 
-    const { error } = await supabase.storage
-      .from('productos')
-      .upload(fileName, webpBuffer, {
-        contentType: 'image/webp',
-        upsert: true,
-      })
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 })
-    }
-
-    const { data } = supabase.storage
-      .from('productos')
-      .getPublicUrl(fileName)
-
-    return NextResponse.json({ url: data.publicUrl })
+    return NextResponse.json({ url })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }

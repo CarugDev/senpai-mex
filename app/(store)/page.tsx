@@ -124,24 +124,23 @@ export default function HomePage() {
               <AnimateIn key={cat.slug} delay={i * 0.1} direction="up">
                 <Link
                   href={`/productos?category=${cat.slug}`}
-                  className="group relative aspect-square overflow-hidden flex flex-col justify-between p-8 block"
+                  className="group relative block overflow-hidden"
+                  style={{ paddingBottom: '100%' }}
                 >
-                  <img
-                    src={cat.img}
-                    alt={cat.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-ink/40 group-hover:bg-torii/60 transition-colors duration-500" />
-                  <span className="relative z-10 font-display text-6xl text-snow/20 leading-none">
-                    {cat.kanji}
-                  </span>
-                  <div className="relative z-10">
-                    <p className="font-body text-xs text-snow/60 tracking-widest mb-1">
-                      {cat.desc}
-                    </p>
-                    <p className="font-display text-xl text-snow">
-                      {cat.name}
-                    </p>
+                  <div className="absolute inset-0">
+                    <img
+                      src={cat.img}
+                      alt={cat.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-ink/40 group-hover:bg-torii/60 transition-colors duration-500" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <p className="font-body text-xs text-snow/70 tracking-widest mb-1">{cat.desc}</p>
+                      <p className="font-display text-xl text-snow">{cat.name}</p>
+                    </div>
+                    <span className="absolute top-4 left-4 font-display text-5xl text-snow/10 leading-none">
+                      {cat.kanji}
+                    </span>
                   </div>
                 </Link>
               </AnimateIn>

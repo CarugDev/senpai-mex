@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-ink text-snow/50 pt-24 pb-12">
       <div className="container-jp">
         <div className="text-center mb-20">
-          <img src="/logo.png" alt="Senpai Mex" className="object-contain brightness-0 invert mx-auto" style={{ width: 160, height: 54 }} />
+          <img src="/logo.png" alt="Senpai Mex" className="h-14 w-auto object-contain brightness-0 invert mx-auto" />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-20">

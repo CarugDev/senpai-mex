@@ -81,8 +81,7 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="Senpai Mex"
-              className={`object-contain transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
-              style={{ width: 120, height: 40 }}
+              className={`h-20 w-48 object-contain transition-all duration-500 ${scrolled ? '' : 'brightness-0 invert'}`}
             />
           </Link>
 
