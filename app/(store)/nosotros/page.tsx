@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import AnimateIn from '@/components/ui/AnimateIn'
 
@@ -29,12 +28,10 @@ export default function NosotrosPage() {
 
       {/* FOTO SHIBUYA FULLWIDTH */}
       <section className="relative h-[60vh] overflow-hidden">
-        <Image
+        <img
           src="/images/urbe.jpg"
           alt="Ciudad japonesa"
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
+          className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-ink/40" />
         <div className="absolute bottom-12 left-0 right-0 container-jp">
@@ -64,12 +61,10 @@ export default function NosotrosPage() {
             </AnimateIn>
             <AnimateIn direction="left" delay={0.2}>
               <div className="relative aspect-[3/4] overflow-hidden">
-                <Image
+                <img
                   src="/images/templo-noche.jpg"
                   alt="Templo japonés de noche"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </AnimateIn>
@@ -83,12 +78,10 @@ export default function NosotrosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
             <AnimateIn direction="right">
               <div className="relative aspect-square overflow-hidden">
-                <Image
+                <img
                   src="/images/campo-te.jpg"
                   alt="Campos de té en Japón"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </AnimateIn>
@@ -113,11 +106,10 @@ export default function NosotrosPage() {
       {/* FUJI SECTION */}
       <section className="relative py-40 overflow-hidden">
         <div className="absolute inset-0">
-          <Image
+          <img
             src="/images/urbe-2.jpg"
             alt="Ciudad japonesa"
-            fill
-            className="object-cover object-bottom"
+            className="w-full h-full object-cover object-bottom"
           />
           <div className="absolute inset-0 bg-navy/70" />
         </div>

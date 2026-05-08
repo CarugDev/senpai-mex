@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/hooks/useAuth'
@@ -79,12 +78,11 @@ export default function Navbar() {
           </div>
 
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <Image
+            <img
               src="/logo.png"
               alt="Senpai Mex"
-              width={120}
-              height={40}
               className={`object-contain transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
+              style={{ width: 120, height: 40 }}
             />
           </Link>
 

@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import Image from 'next/image'
 import ProductCard from '@/components/store/ProductCard'
 import AnimateIn from '@/components/ui/AnimateIn'
 import { motion } from 'framer-motion'
@@ -37,13 +36,10 @@ export default function HomePage() {
       {/* HERO — Shibuya de fondo */}
       <section className="relative min-h-screen flex items-end pb-24 overflow-hidden">
         <div className="absolute inset-0">
-          <Image
+          <img
             src="/images/shibuya.jpg"
             alt="Tokio de noche"
-            fill
-            className="object-cover object-center"
-            priority
-            sizes="100vw"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/70 to-ink/40" />
         </div>
@@ -130,11 +126,10 @@ export default function HomePage() {
                   href={`/productos?category=${cat.slug}`}
                   className="group relative aspect-square overflow-hidden flex flex-col justify-between p-8 block"
                 >
-                  <Image
+                  <img
                     src={cat.img}
                     alt={cat.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-ink/40 group-hover:bg-torii/60 transition-colors duration-500" />
                   <span className="relative z-10 font-display text-6xl text-snow/20 leading-none">
@@ -204,19 +199,17 @@ export default function HomePage() {
             {/* Collage de 2 fotos */}
             <AnimateIn direction="right" className="grid grid-cols-2 gap-2 h-full min-h-[500px]">
               <div className="relative overflow-hidden">
-                <Image
+                <img
                   src="/images/templo.jpg"
                   alt="Templo japonés"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
               <div className="relative overflow-hidden">
-                <Image
+                <img
                   src="/images/linternas.jpg"
                   alt="Linternas japonesas"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </AnimateIn>
@@ -268,11 +261,10 @@ export default function HomePage() {
       {/* FUJI SECTION */}
       <section className="relative py-40 overflow-hidden">
         <div className="absolute inset-0">
-          <Image
+          <img
             src="/images/fuji.jpg"
             alt="Monte Fuji"
-            fill
-            className="object-cover object-center"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-navy/70" />
         </div>
